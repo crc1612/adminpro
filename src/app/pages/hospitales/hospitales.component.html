@@ -1,0 +1,70 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (input)="buscarHospital(input.value)" type="text" class="form-control" placeholder="Buscar hospital">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="cargando && hospitales.length !== 0">
+    <div class="col-sm-12">
+        <div class="alert alert-warning text-center">
+            <strong>Cargando</strong>
+            <br>
+            <i class="fa fa-refresh fa-spin fa-2x"></i>
+            <br>
+            <span>Espere por favor</span>
+        </div>
+    </div>
+</div>
+
+<div class="row animated fadeIn" *ngIf="!cargando">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="clearfix">
+                    <button (click)="crearHospital()" type="button" class="btn btn-primary btn-rounded pointer float-right"><i class="fa fa-plus"> </i> Nuevo hospital</button>
+                </div>
+
+                <h3 class="card-title">Hospitales registrados ( <small>{{totalRegistros}}</small> )</h3>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let hospital of hospitales; let i = index">
+                            <td class="w70">
+                                <img (click)="mostrarModal(hospital._id, hospital.img)" class="img-50 img-circle pointer" [src]="hospital.img | imagen: 'hospitales'">
+                            </td>
+                            <td class="input-group">
+                                <input [id]="'e'+ i" (blur)="outFocus(i)" [(ngModel)]="hospital.nombre" type="text" class="form-control" disabled><button class="input-group-append btn btn-secondary" (click)="editName(i)"><i class="fa fa-pencil"></i></button>
+                            </td>
+                            <td>
+                                <button (click)="guardarHospital(hospital)" class="btn btn-primary">
+                                <i class="fa fa-save"></i>
+                            </button>
+                                <button (click)="borrarHospital(hospital)" class="btn btn-danger">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button (click)="cambiarDesde(-5)" class="btn btn-secondary">
+                    Anteriores
+                </button>
+                <button (click)="cambiarDesde(5)" class="btn btn-secondary">
+                    Siguientes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

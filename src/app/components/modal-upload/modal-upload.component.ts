@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubirArchivoService } from '../../services/subir-archivo/subir-archivo.service';
 import { ModalUploadService } from './modal-upload.service';
-
-declare var swal: any;
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-modal-upload',
@@ -32,7 +32,7 @@ export class ModalUploadComponent implements OnInit {
       return;
     }
     if ( archivo.type.indexOf('image') < 0) {
-      swal('Solo imagenes', 'El archivo seleccionado no es una imagen', 'error');
+      Swal.fire('Solo imagenes', 'El archivo seleccionado no es una imagen', 'error');
     }
     this.imagenSubir = archivo;
     const reader = new FileReader();
@@ -41,10 +41,11 @@ export class ModalUploadComponent implements OnInit {
   }
 
   subirImagen() {
-    this.cargaArchivoService.subirArchivo( this.imagenSubir, this.modalUploadService.tipo, this.modalUploadService.id )
+    this.cargaArchivoService
+    .subirArchivo( this.imagenSubir, this.modalUploadService.tipo, this.modalUploadService.id, this.modalUploadService.user )
     .then( resp => {
       this.modalUploadService.notificacion.emit( resp );
-      swal('Se Actualizo la imagen', 'Se actualizo correctamente la imagen', 'success');
+      Swal.fire('Se Actualizo la imagen', 'Se actualizo correctamente la imagen', 'success');
       this.cerrarModal();
     })
     .catch( err => {

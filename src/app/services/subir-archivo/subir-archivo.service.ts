@@ -8,7 +8,7 @@ export class SubirArchivoService {
 
   constructor() { }
 
-  subirArchivo( archivo: File, tipo: string, id: string ) {
+  subirArchivo( archivo: File, tipo: string, id: string, user: string ) {
     return new Promise( (resolve, reject) => {
       const formData = new FormData();
       const xhr = new XMLHttpRequest();
@@ -16,7 +16,7 @@ export class SubirArchivoService {
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4) {
           if (xhr.status === 200) {
-            console.log('Imagne subida');
+            console.log('Imagen subida');
             resolve( JSON.parse(xhr.response) );
           } else {
             console.log('Fallo la carga');
@@ -24,7 +24,7 @@ export class SubirArchivoService {
           }
         }
       };
-      const url = URL_SERVICIOS + '/upload/' + tipo + '/' + id;
+      const url = URL_SERVICIOS + '/upload/' + tipo + '/' + id + '/' + user;
       xhr.open('PUT', url, true);
       xhr.send(formData);
     });

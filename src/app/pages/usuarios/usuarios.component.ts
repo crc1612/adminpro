@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario.model';
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { ModalUploadService } from '../../components/modal-upload/modal-upload.service';
-
-declare var swal: any;
+import { ModalNewUserService } from '../../components/modal-new-user/modal-new-user.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-usuarios',
@@ -14,21 +14,27 @@ export class UsuariosComponent implements OnInit {
 
   usuarios: Usuario[] = [];
   desde: number = 0;
+  tipo: string = 'usuario';
 
   totalRegistros: number = 0;
   cargando: boolean = true;
 
-  constructor( public usuarioService: UsuarioService, public modalUploadService: ModalUploadService ) { }
+  constructor( public usuarioService: UsuarioService,
+               public modalUploadService: ModalUploadService,
+               public modalNewUserService: ModalNewUserService ) { }
 
   ngOnInit() {
     this.cargarUsuarios();
     this.modalUploadService.notificacion.subscribe( (resp: any) => {
       this.cargarUsuarios();
     });
+    this.modalNewUserService.notificacion.subscribe( (resp: any) => {
+      this.cargarUsuarios();
+    });
   }
 
   mostrarModal( id: string, img: string ) {
-    this.modalUploadService.mostrarModal('usuarios', id, img);
+    this.modalUploadService.mostrarModal('usuarios', id, img, this.usuarioService.usuario._id);
   }
 
   cargarUsuarios() {
@@ -65,15 +71,14 @@ export class UsuariosComponent implements OnInit {
   borrarUsuario(usuario: Usuario) {
     // console.log(usuario);
     if (usuario._id === this.usuarioService.usuario._id) {
-      swal('No se puede borrar usuario', 'No se puede borrar a si mismo', 'error');
+      Swal.fire('No se puede borrar usuario', 'No se puede borrar a si mismo', 'error');
       return;
     }
-    swal({
+    Swal.fire({
       title: '¿Esta Seguro?',
       text: 'Esta a punto de borrar a ' + usuario.nombre,
       icon: 'warning',
-      buttons: true,
-      dangermode: true,
+      showCancelButton: true
     })
     .then( borrar => {
       console.log( borrar );
@@ -87,6 +92,10 @@ export class UsuariosComponent implements OnInit {
   }
   guardarUsuario(usuario: Usuario) {
     this.usuarioService.actualizarUsuario(usuario).subscribe();
+  }
+
+  mostrarModalUser() {
+    this.modalNewUserService.mostrarModal('usuarios', this.usuarioService.usuario._id);
   }
 
 }

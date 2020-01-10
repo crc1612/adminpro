@@ -6,6 +6,8 @@ import { Usuario } from '../models/usuario.model';
 
 declare function init_plugins(): any;
 
+declare var gapi: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -39,12 +41,12 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  attachSignin( element) {
-    this.auth2.attachClickHandler( element, {}, (googleUser) => {
+  attachSignin( element: any ) {
+    this.auth2.attachClickHandler( element, {}, (googleUser: any) => {
       // const profile = googleUser.getBasicProfile();
       const token = googleUser.getAuthResponse().id_token;
       this.usuarioService.loginGoogle( token )
-          .subscribe( esp => window.location.href = '#/dashboard');
+          .subscribe( () => window.location.href = '#/dashboard');
     });
   }
 

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { SharedModule } from '../shared/shared.module';
 import { ChartsModule } from 'ng2-charts';
@@ -20,6 +20,11 @@ import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
+import { ModalNewUserComponent } from '../components/modal-new-user/modal-new-user.component';
+import { HospitalesComponent } from './hospitales/hospitales.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MedicosComponent } from './medicos/medicos.component';
+import { ModalNewMedicoComponent } from '../components/modal-new-medico/modal-new-medico.component';
 
 
 @NgModule({
@@ -35,7 +40,11 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
       RxjsComponent,
       ProfileComponent,
       UsuariosComponent,
-      ModalUploadComponent
+      ModalUploadComponent,
+      HospitalesComponent,
+      ModalNewUserComponent,
+      MedicosComponent,
+      ModalNewMedicoComponent
     ],
     exports: [
       DashboardComponent,
@@ -49,9 +58,11 @@ import { ModalUploadComponent } from '../components/modal-upload/modal-upload.co
         CommonModule,
         SharedModule,
         PAGES_ROUTES,
-        FormsModule,
         ChartsModule,
-        PipesModule
+        PipesModule,
+        SweetAlert2Module,
+        FormsModule,
+        ReactiveFormsModule
     ]
   })
 

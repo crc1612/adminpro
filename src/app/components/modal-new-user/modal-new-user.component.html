@@ -1,0 +1,64 @@
+<div class="fondo-negro animated fadeIn" [ngClass]="modalNewUserService.oculto">
+    <div class="modal" style="display: block;" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title">Nuevo Usuario</h2>
+                    <button (click)="cerrarModal()" type="button" class="close" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                </div>
+                <div class="modal-body text-center">
+                    <form ngNativeValidate [formGroup]="forma" (ngSubmit)="crearUsuario()" class="form-horizontal form-material" id="userform" action="index.html">
+                        <div class="form-group m-t-20">
+                            <div class="col-xs-12">
+                                <input formControlName="nombre" name="nombre" class="form-control" type="text" required placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input formControlName="correo" name="correo" class="form-control" type="text" required placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <select formControlName="role" name="role" class="form-control" required>
+                                    <option value="USER_ROLE">USER_ROLE</option>
+                                    <option value="ADMIN_ROLE">ADMIN_ROLE</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input formControlName="password" name="password" class="form-control" type="password" required placeholder="Contraseña">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <input formControlName="password2" name="password2" class="form-control" type="password" required="" placeholder="Confirmar contrasena">
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="forma.errors?.sonIguales && !forma.pristine">
+                            <p class="text-danger">
+                                Las contraseñas deben ser iguales
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <img *ngIf="!imagenTemp" [src]="'' | imagen" class="w150">
+                                <img *ngIf="imagenTemp" [src]="imagenTemp" class="w150">
+                                <input formControlName="img" name="img" (change)="seleccionImagen($event.target.files[0])" type="file">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-xs-12">
+                                <button (click)="cerrarModal()" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Crear</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
