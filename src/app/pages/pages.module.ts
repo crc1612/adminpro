@@ -25,6 +25,7 @@ import { HospitalesComponent } from './hospitales/hospitales.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MedicosComponent } from './medicos/medicos.component';
 import { ModalNewMedicoComponent } from '../components/modal-new-medico/modal-new-medico.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ModalNewMedicoComponent } from '../components/modal-new-medico/modal-ne
       HospitalesComponent,
       ModalNewUserComponent,
       MedicosComponent,
-      ModalNewMedicoComponent
+      ModalNewMedicoComponent,
+      BusquedaComponent
     ],
     exports: [
       DashboardComponent,
