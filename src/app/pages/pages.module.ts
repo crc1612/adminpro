@@ -19,12 +19,9 @@ import { PipesModule } from '../pipes/pipes.module';
 import { ProfileComponent } from './profile/profile.component';
 import { CommonModule } from '@angular/common';
 import { UsuariosComponent } from './usuarios/usuarios.component';
-import { ModalUploadComponent } from '../components/modal-upload/modal-upload.component';
-import { ModalNewUserComponent } from '../components/modal-new-user/modal-new-user.component';
 import { HospitalesComponent } from './hospitales/hospitales.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { MedicosComponent } from './medicos/medicos.component';
-import { ModalNewMedicoComponent } from '../components/modal-new-medico/modal-new-medico.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
@@ -33,7 +30,6 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
       DashboardComponent,
       ProgressComponent,
       Graficas1Component,
-      PagesComponent,
       IncrementadorComponent,
       GraficoDonaComponent,
       AccountSettingsComponent,
@@ -41,12 +37,10 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
       RxjsComponent,
       ProfileComponent,
       UsuariosComponent,
-      ModalUploadComponent,
       HospitalesComponent,
-      ModalNewUserComponent,
       MedicosComponent,
-      ModalNewMedicoComponent,
-      BusquedaComponent
+      BusquedaComponent,
+      PagesComponent
     ],
     exports: [
       DashboardComponent,

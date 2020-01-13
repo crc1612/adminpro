@@ -6,6 +6,7 @@ import { map, catchError } from 'rxjs/operators';
 import { SubirArchivoService } from '../subir-archivo/subir-archivo.service';
 import Swal from 'sweetalert2';
 import { Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +17,24 @@ export class UsuarioService {
   token: string;
   menu: any[] = [];
 
-  constructor( public http: HttpClient, public subirArchivoService: SubirArchivoService) {
+  constructor( public http: HttpClient, public subirArchivoService: SubirArchivoService,
+               public router: Router) {
     // console.log('Servicio de usuario listo');
     this.cargarStorage();
+  }
+
+  renuevaToken() {
+    const url = URL_SERVICIOS + '/login/renuevatoken?token=' + this.token;
+    return this.http.get( url ).pipe(map( (resp: any) => {
+      this.token = resp.token;
+      localStorage.setItem('token', this.token);
+      return true;
+    }), catchError( (err: any) => {
+      // console.log(err.error.mensaje);
+      this.router.navigate(['/login']);
+      Swal.fire('No se pudo renovar token', err.error.mensaje, 'error');
+      return throwError(err.error.mensaje);
+    }));
   }
 
   estaLogueado() {
